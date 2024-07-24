@@ -1,0 +1,11 @@
+# deps
+node_modules/
+
+# Playwright specific
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# temporary files and dirs
+tmp/
+*.tmp
