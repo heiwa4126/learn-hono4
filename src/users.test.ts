@@ -3,11 +3,13 @@ import { testClient } from "hono/testing";
 import type { ZodIssue } from "zod";
 import app, { type AppType } from "./users";
 
+// これちょっとヤダ。どうにかする
 type ZodErrorResponse = {
 	success: false;
 	error: {
+		// see https://zod.dev/ERROR_HANDLING?id=zoderror
 		issues: ZodIssue[];
-		name: string; // "ZodError"
+		name: "ZodError";
 	};
 };
 
@@ -24,8 +26,8 @@ describe("users app", () => {
 		expect(res.status).toEqual(200);
 		expect(await res.json()).toEqual({ id: "aaa", age: 20, name: "Ultra-man" });
 	});
-	test("GET /3 (error)", async () => {
-		const res = await client[":id"].$get({ param: { id: "3" } });
+	test("GET /12 (too short)", async () => {
+		const res = await client[":id"].$get({ param: { id: "12" } });
 		expect(res.ok).toBeFalse();
 		expect(
 			((await res.json()) as unknown as ZodErrorResponse).error.issues[0].code,
