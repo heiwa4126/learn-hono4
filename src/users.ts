@@ -21,7 +21,7 @@ const route = createRoute({
 
 const app = new OpenAPIHono();
 
-app.openapi(route, (c) => {
+const route2 = app.openapi(route, (c) => {
 	const { id } = c.req.valid("param");
 	return c.json({
 		id,
@@ -30,5 +30,5 @@ app.openapi(route, (c) => {
 	});
 });
 
-export type AppType = typeof route;
+export type AppType = typeof route2;
 export default app;
